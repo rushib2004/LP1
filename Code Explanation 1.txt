@@ -1,0 +1,93 @@
+Code Explanation
+Initialization:
+
+java
+Copy code
+int i, lc = 0;
+i is used as a loop counter.
+lc stands for the location counter, which keeps track of memory addresses for each instruction.
+Input Table Setup:
+
+java
+Copy code
+String a[][] = {
+    {"", "START", "101", ""},
+    {"", "MOVER", "BREG", "ONE"},
+    {"AGAIN", "MULT", "BREG", "TERM"},
+    {"", "MOVER", "CREG", "TERM"},
+    {"", "ADD", "CREG", "N"},
+    {"", "MOVEM", "CREG", "TERM"},
+    {"N", "DS", "2", ""},
+    {"RESULT", "DS", "2", ""},
+    {"ONE", "DC", "1", ""},
+    {"TERM", "DS", "1", ""},
+    {"", "END", "", ""}
+};
+a is a 2D array representing the assembly code in tabular form.
+Each row represents a line in the assembly program, with columns representing different components like labels, instructions, and operands.
+Symbol Table Initialization:
+
+java
+Copy code
+String st[][] = new String[5][2];
+int cnt = 0;
+st is a 2D array that serves as the symbol table, where symbols and their addresses will be stored.
+cnt keeps track of the number of symbols.
+Location Counter Initialization:
+
+java
+Copy code
+lc = Integer.parseInt(a[0][2]);
+The location counter lc is set to 101, as indicated by the START directive in the assembly program.
+Processing the Assembly Code:
+
+java
+Copy code
+for (i = 1; i < 11; i++) { ... }
+A loop iterates over each line in the input table (skipping the START directive).
+Inside the loop:
+
+Symbol Handling:
+java
+Copy code
+if (!a[i][0].equals("")) {
+    st[cnt][0] = a[i][0];
+    st[cnt][1] = Integer.toString(lc);
+    cnt++;
+}
+If the first column of a row (label column) is non-empty, it means there is a symbol.
+This symbol is recorded in the symbol table st with the current lc value as its address.
+Location Counter Update:
+java
+Copy code
+if (a[i][1].equals("DS")) {
+    int d = Integer.parseInt(a[i][2]);
+    lc += d;
+} else {
+    lc++;
+}
+If the directive is DS (Define Storage), lc is incremented by the specified size.
+For other instructions, lc is incremented by 1.
+Printing the Symbol Table:
+
+java
+Copy code
+System.out.println("Symbol Table:");
+for (i = 0; i < cnt; i++) {
+    for (int j = 0; j < 2; j++) {
+        System.out.print(st[i][j] + "\t");
+    }
+    System.out.println();
+}
+This loop prints the generated symbol table, showing each symbol and its address.
+Example Output
+Running this code will display a symbol table like:
+
+mathematica
+Copy code
+Symbol Table:
+AGAIN	102
+N	106
+RESULT	108
+ONE	110
+TERM	111
