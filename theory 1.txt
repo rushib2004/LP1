@@ -1,0 +1,29 @@
+An assembler is a program that accepts as input an assembly language program (source) and produces its machine language equivalent (object code) along with the information for the loader.
+
+Advantages of coding in assembly language are:
+•	Provides more control over handling particular hardware components
+•	May generate smaller, more compact executable modules
+•	Often results in faster execution
+•
+Disadvantages:
+•	Not portable
+•	More complex
+•	Requires understanding of hardware details (interfaces
+
+Elements of Assembly Language :
+
+An assembly language programming provides three basic features which simplify programming when compared to machine language.
+
+1.	Mnemonic	Operation Codes :
+
+Mnemonic operation code / Mnemonic Opcodes for machine instruction eliminates the need to memorize numeric operation codes. It enables assembler to provide helpful error diagnostics. Such as indication of misspelt operation codes.
+
+
+2.	Symbolic Operands :
+
+Symbolic names can be associated with data or instructions. These symbolic names can be used as operands in assembly statements. The assembeler performes memory bindinding to these names; the programmer need not know any details of the memory bindings performed by the assembler.
+
+
+3.	Data declarations :
+
+Data can be declared in a variety of notations, including the decimal notation. This avoids manual conversion of constants into their internal machine representation, for example -5 into (11111010)2 or 10.5 into (41A80000)16
