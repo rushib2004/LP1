@@ -1,0 +1,81 @@
+package jeevan1;
+
+import java.util.Scanner;
+
+
+class jeevan {
+    public static void main(String args[]) {
+        Scanner s = new Scanner(System.in);
+        int x, n, p[], pp[], bt[], w[], t[], i;
+        float awt = 0, atat = 0; // Average waiting time and turnaround time as float
+        
+        p = new int[10];
+        pp = new int[10];
+        bt = new int[10];
+        w = new int[10];
+        t = new int[10];
+        
+        // Input number of processes
+        System.out.print("Enter the number of processes: ");
+        n = s.nextInt();
+        
+        // Input burst time and priority for each process
+        System.out.println("\n\tEnter burst time and priority for each process");
+        for (i = 0; i < n; i++) {
+            System.out.print("\nProcess[" + (i + 1) + "]: ");
+            bt[i] = s.nextInt();   // Burst time
+            pp[i] = s.nextInt();   // Priority
+            p[i] = i + 1;          // Process number
+        }
+
+        // Sorting based on priority (higher priority first)
+        for (i = 0; i < n - 1; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if (pp[i] < pp[j]) {   // Swap if lower priority comes first
+                    // Swap priorities
+                    x = pp[i];
+                    pp[i] = pp[j];
+                    pp[j] = x;
+                    
+                    // Swap burst times
+                    x = bt[i];
+                    bt[i] = bt[j];
+                    bt[j] = x;
+                    
+                    // Swap process numbers
+                    x = p[i];
+                    p[i] = p[j];
+                    p[j] = x;
+                }
+            }
+        }
+
+        // Initial values
+        w[0] = 0; // Waiting time for first process is 0
+        t[0] = bt[0]; // Turnaround time for first process is its burst time
+        awt = 0;
+        atat = t[0]; // Add the turnaround time of first process
+
+        // Calculate waiting time and turnaround time for the remaining processes
+        for (i = 1; i < n; i++) {
+            w[i] = t[i - 1];   // Waiting time is the turnaround time of the previous process
+            awt += w[i];        // Accumulate waiting time
+            t[i] = w[i] + bt[i]; // Turnaround time = waiting time + burst time
+            atat += t[i];        // Accumulate turnaround time
+        }
+
+        // Displaying the process details
+        System.out.println("\nProcess \tBurst Time \tWait Time \tTurnaround Time \tPriority");
+        for (i = 0; i < n; i++) {
+            System.out.printf("P%d\t\t%d\t\t%d\t\t%d\t\t\t%d\n", p[i], bt[i], w[i], t[i], pp[i]);
+        }
+
+        // Calculate average waiting time and turnaround time
+        awt /= n;  // Average waiting time
+        atat /= n; // Average turnaround time
+
+        // Displaying the averages
+        System.out.println("\nAverage Wait Time: " + awt);
+        System.out.println("Average Turnaround Time: " + atat);
+    }
+}

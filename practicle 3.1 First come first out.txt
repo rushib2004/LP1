@@ -1,0 +1,66 @@
+package abhijit;
+
+import java.util.Scanner;
+
+class demo {
+    public static void main(String args[]) {
+        // Declare necessary arrays and variables
+        int burst_time[], process[], waiting_time[], tat[], i, j, n, total_waiting_time = 0, total_turnaround_time = 0;
+        float wait_avg, TAT_avg;
+        
+        // Create Scanner object for input
+        Scanner s = new Scanner(System.in);
+
+        // Input: number of processes
+        System.out.print("Enter number of processes: ");
+        n = s.nextInt();
+
+        // Initialize arrays
+        process = new int[n];
+        burst_time = new int[n];
+        waiting_time = new int[n];
+        tat = new int[n];
+
+        // Input: burst time for each process
+        System.out.println("\nEnter Burst times for each process:");
+        for (i = 0; i < n; i++) {
+            System.out.print("\nProcess[" + (i + 1) + "]: ");
+            burst_time[i] = s.nextInt();
+            process[i] = i + 1;  // Process Number (1-based index)
+        }
+
+        // First process has 0 waiting time
+        waiting_time[0] = 0;
+
+        // Calculate waiting times for all processes
+        for (i = 1; i < n; i++) {
+            waiting_time[i] = 0;
+            for (j = 0; j < i; j++) {
+                waiting_time[i] += burst_time[j];  // Sum burst times of previous processes
+            }
+            total_waiting_time += waiting_time[i];
+        }
+
+        // Calculate average waiting time
+        wait_avg = (float) total_waiting_time / n;
+        total_turnaround_time = 0;  // Reset total turnaround time to calculate TAT
+
+        // Output: Process details (including burst time, waiting time, and turnaround time)
+        System.out.println("\nProcess\tBurst Time\tWaiting Time\tTurnaround Time");
+        for (i = 0; i < n; i++) {
+            // Calculate Turnaround Time
+            tat[i] = burst_time[i] + waiting_time[i];
+            total_turnaround_time += tat[i];
+
+            // Print details of each process
+            System.out.println("P" + process[i] + "\t\t" + burst_time[i] + "\t\t" + waiting_time[i] + "\t\t" + tat[i]);
+        }
+
+        // Calculate average turnaround time
+        TAT_avg = (float) total_turnaround_time / n;
+
+        // Output the averages
+        System.out.println("\nAverage Waiting Time: " + wait_avg);
+        System.out.println("Average Turnaround Time: " + TAT_avg);
+    }
+}
