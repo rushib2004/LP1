@@ -23,7 +23,13 @@ Mnemonic operation code / Mnemonic Opcodes for machine instruction eliminates th
 
 Symbolic names can be associated with data or instructions. These symbolic names can be used as operands in assembly statements. The assembeler performes memory bindinding to these names; the programmer need not know any details of the memory bindings performed by the assembler.
 
-
 3.	Data declarations :
 
 Data can be declared in a variety of notations, including the decimal notation. This avoids manual conversion of constants into their internal machine representation, for example -5 into (11111010)2 or 10.5 into (41A80000)16
+
+ ........What is a Symbol Table, Literal Table, and Pool Table?.....................................
+Symbol Table: A data structure used to store symbols (labels or variables) along with their addresses and other relevant information, such as data type or scope.
+
+Literal Table: Stores literals (constant values specified directly in code) and assigns addresses to them. For example, in the instruction MOV A, =5, the literal =5 would be stored in the literal table.
+
+Pool Table: Manages groups of literals. When the LTORG directive is encountered, the assembler assigns addresses to all literals encountered up to that point and places them in the pool.
